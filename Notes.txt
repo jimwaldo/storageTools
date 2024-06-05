@@ -1,0 +1,51 @@
+
+To allow comparing the formats of the reports coming from HUIT, I've
+saved a list of header information from the full .csv in the files
+AprilHeader.pkl and MarchHeader.pkl. These can be read in and compared
+with the extracted header from the .csv that is generated from the .xlsx
+file sent by HUIT.
+
+We are expecting input files to be in the format of the .csv files that have the following order:
+ 'UUID',
+ 'HUID',
+ 'User Name',
+ 'Google Email',
+ 'M365 Email',
+ 'Dropbox Email',
+ 'Affiliation',
+ 'Role',
+ 'Billing Customer',
+ 'Billing Customer Code',
+ 'Google Cost Center',
+ 'IAM Faculty Cd',
+ 'IAM Dept',
+ 'IAM Dept Desc',
+ 'Active Communties',
+ 'Lockout Communties',
+ 'Separated Communties',
+ 'M365 License',
+ 'Google Storage (GB)',
+ 'Exchange Storage (GB)',
+ 'OneDrive Storage (GB)',
+ 'M365 Total Storage (GB)',
+ 'Dropbox Storage (GB)',
+ 'Total Storage (GB)'
+
+From this the script extractList.build_extract_list will pull:
+    'UUID': 0,
+    'HUID': 1,
+    'Name': 2,
+    'Google_email': 3,
+    'M365_Email': 4,
+    'DB_email': 5,
+    'Role': 6,
+    'Google_store': 7,
+    'Exchange_store': 8,
+    'One_Drive_store': 9,
+    'M365_store': 10,
+    'Dropbox_store': 11,
+    'total_store': 12
+
+Note that in the .csv file for April the Google Storage column was moved from column 18 to column 21, with the others
+shifted accordingly.
+

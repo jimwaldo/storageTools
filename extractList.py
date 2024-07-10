@@ -154,6 +154,5 @@ if __name__ == '__main__':
 
     one_drive_storage = ss.Storage_Summary('One Drive', 9, extract)
     one_drive_storage.print_summary()
-  
 
     sys.exit(0)

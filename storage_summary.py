@@ -3,14 +3,19 @@ import extractList as el
 
 class Storage_Summary:
     """
-    A class to hold the summary of storage use for a particular kind of storage. Currently the allocation of the
-    object and the building from the storage list are separate, but they could be combined.
+    A class to hold the summary of storage use for a particular kind of storage. The building of the object occurs
+    on initialization, but could also be done separately via build_from_list().
     """
     def __init__(self, store_name, i, store_l):
         self.storageName = store_name
-        self.num_users = len(store_l)
         self.total, self.distribution = el.get_distribution(store_l, i)
-        top_twenty = sorted(store_l, key=lambda x:x[i], reverse=True)[:20]
+        sort_list = sorted(store_l, key=lambda x:x[i], reverse=True)
+        self.num_users = 0
+        for l in sort_list:
+            if l[i] > 0:
+                self.num_users += 1
+
+        top_twenty = sort_list[:20]
         self.top_twenty_total = 0
         self.top_twenty = []
         for t in top_twenty:

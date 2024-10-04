@@ -97,7 +97,9 @@ def get_distribution(from_l,i):
     for l in from_l:
         tot = l[i]
         g_total += tot
-        if tot < 1.0:
+        if tot == 0:
+            continue
+        elif tot < 1.0:
             bins[0] += 1
         elif tot < 10.0:
             bins[1] += 1

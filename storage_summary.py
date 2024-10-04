@@ -8,6 +8,7 @@ class Storage_Summary:
     """
     def __init__(self, store_name, i, store_l):
         self.storageName = store_name
+        self.num_users = len(store_l)
         self.total, self.distribution = el.get_distribution(store_l, i)
         top_twenty = sorted(store_l, key=lambda x:x[i], reverse=True)[:20]
         self.top_twenty_total = 0
@@ -28,7 +29,7 @@ class Storage_Summary:
         :return: None
         """
         self.storageName = store_name
-        self.total, self.distribution = el,get_distribution(store_l, i)
+        self.total, self.distribution = el.get_distribution(store_l, i)
         top_twenty = sorted(store_l, key=lambda x: x[i], reverse=True)[:20]
         for t in top_twenty:
             tt_entry = t[1:-6]
@@ -46,6 +47,7 @@ class Storage_Summary:
         """
         print('Storage Summary for {}'.format(self.storageName))
         print('Total storage used: {}'.format(self.total))
+        print('Total number of users: {}'.format(self.num_users))
         print('Top 20 Total Use: {}'.format(self.top_twenty_total))
         print('Distribution of storage use:')
         print('\tLess than 1GB: {}'.format(self.distribution[0]))

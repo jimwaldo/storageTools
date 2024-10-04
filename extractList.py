@@ -14,13 +14,36 @@ type of storage, along with the amount of storage they use.
 import sys, csv, pickle
 import storage_summary as ss
 
+'''
+The report from HUIT has changed a couple of times, so the indices of the fields we want to extract will be kept in this
+dictionary, so that if they change again we need only change the values of the dictionary.
+'''
+rep_d = {'UUID':0,
+       'HUID':1,
+       'Name':2,
+       'Google_email':3,
+       'M365_email':4,
+       'DB_email':7,
+       'Role':9,
+       'Google_store':18,
+       'Exchange_store':21,
+       'One_Drive_store':22,
+       'M365_store':23,
+       'Dropbox_store':24,
+       'total_store':25
+        }
+
+num_fields = {rep_d['Google_store'], rep_d['Exchange_store'], rep_d['One_Drive_store'], rep_d['M365_store'], rep_d['Dropbox_store'], rep_d['total_store']}
+
 # The fields to extract from the .csv file that is the full report from HUIT.
 # note that the report has changed a couple of times, so this may change as well
 #extract_list = [0,1,2,3,4,5,7,18,19,20,21,22,23] Extract list for April
-extract_list = [0,1,2,3,4,5,7,16,17,18,19,20,21] #Extract list for May
+#extract_list = [0,1,2,3,4,5,9,18,21,22,23,24,25] #Extract list for May
+extract_list = rep_d.values()
+
 
 #num_fields = {18,19,20,21,22,23} Numeric fields for April
-num_fields = {16,17,18,19,20,21} #Numeric fields for May
+#num_fields = {18,21,22,23,24,25} #Numeric fields for May
 
 # A dictionary of the fields in the extract list
 

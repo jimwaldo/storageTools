@@ -18,28 +18,34 @@ import storage_summary as ss
 The report from HUIT has changed a couple of times, so the indices of the fields we want to extract will be kept in this
 dictionary, so that if they change again we need only change the values of the dictionary.
 '''
-rep_d = {'UUID':0,
-       'HUID':1,
-       'Name':2,
-       'Google_email':3,
-       'M365_email':4,
-       'DB_email':7,
-       'Role':9,
-       'Google_store':18,
-       'Exchange_store':21,
-       'One_Drive_store':22,
-       'M365_store':23,
-       'Dropbox_store':24,
-       'total_store':25
-        }
+rep_d = {'UUID': 0,
+         'HUID': 1,
+         'Name': 2,
+         'Google_email': 3,
+         'M365_email': 4,
+         'DB_email': 7,
+         'Role': 10,
+         'Google_store': 19,
+         'Exchange_store': 22,
+         'One_Drive_store': 23,
+         'M365_store': 24,
+         'Dropbox_store': 25,
+         'Zoom_store': 26,
+         'total_store': 27
+         }
 
-num_fields = {rep_d['Google_store'], rep_d['Exchange_store'], rep_d['One_Drive_store'], rep_d['M365_store'], rep_d['Dropbox_store'], rep_d['total_store']}
+num_fields = {rep_d['Google_store'], rep_d['Exchange_store'], rep_d['One_Drive_store'], rep_d['M365_store'],
+              rep_d['Dropbox_store'], rep_d['Zoom_store'],rep_d['total_store']}
 
 # The fields to extract from the .csv file that is the full report from HUIT.
 # note that the report has changed a couple of times, so this may change as well
 #extract_list = [0,1,2,3,4,5,7,18,19,20,21,22,23] Extract list for April
 #extract_list = [0,1,2,3,4,5,9,18,21,22,23,24,25] #Extract list for May
 extract_list = rep_d.values()
+
+# Number of header lines that need to be skipped
+
+header_line_len = 4
 
 
 #num_fields = {18,19,20,21,22,23} Numeric fields for April
@@ -59,7 +65,8 @@ data_dict = {'UUID': 0,
              'One_Drive_store': 9,
              'M365_store': 10,
              'Dropbox_store': 11,
-             'total_store': 12
+             'Zoom_store': 12,
+             'total_store': 13
              }
 
 
@@ -151,11 +158,12 @@ if __name__ == '__main__':
         print('Usage: python extractList.py storage_file.csv out_file.pkl')
         sys.exit(1)
 
-    fin = open(sys.argv[1], 'r')
+    fin = open(sys.argv[1], 'r', encoding='ISO-8859-1')
     cin = csv.reader(fin)
 
     fout = open(sys.argv[2], 'wb')
-    h = next(cin)
+    for i in range(0,header_line_len):
+        h = next(cin)
     extract = build_extract_list(cin, extract_list)
     pickle.dump(extract, fout)
 
@@ -165,19 +173,22 @@ if __name__ == '__main__':
     print ("Total number of records: ", len(extract))
     print()
 
-    total_storage = ss.Storage_Summary('Total', 12, extract)
+    total_storage = ss.Storage_Summary('Total', data_dict['total_store'], extract)
     total_storage.print_summary()
 
-    google_storage = ss.Storage_Summary('Google', 7, extract)
+    google_storage = ss.Storage_Summary('Google', data_dict['Google_store'], extract)
     google_storage.print_summary()
   
-    db_store = ss.Storage_Summary('Dropbox', 11, extract)
+    db_store = ss.Storage_Summary('Dropbox', data_dict['Dropbox_store'], extract)
     db_store.print_summary()
 
-    exchange_storage = ss.Storage_Summary('Exchange', 8, extract)
+    exchange_storage = ss.Storage_Summary('Exchange', data_dict['Exchange_store'], extract)
     exchange_storage.print_summary()
 
-    one_drive_storage = ss.Storage_Summary('One Drive', 9, extract)
+    one_drive_storage = ss.Storage_Summary('One Drive', data_dict['One_Drive_store'], extract)
     one_drive_storage.print_summary()
+
+    zoom_storage = ss.Storage_Summary('Zoom', data_dict['Zoom_store'], extract)
+    zoom_storage.print_summary()
 
     sys.exit(0)

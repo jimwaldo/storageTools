@@ -76,6 +76,7 @@ def print_results(counts):
         for j in counts[i].keys():
             print('Order of magnitude: {}, Classification {} Count: {}'.format(i, j, counts[i][j]))
 
+
 def plot_values(data):
     # Extracting the data for plotting
     x = list(data.keys())
@@ -90,9 +91,8 @@ def plot_values(data):
                 data[i][l] = 0
     counts = [[data[i][label] for label in labels] for i in x]
 
-    # Plotting the bar graph
-    bar_width = 0.2  # Width of each bar
-    opacity = 0.8    # Opacity of the bars
+    bar_width = 0.2
+    opacity = 0.8
 
     fig, ax = plt.subplots()
     for i in range(len(labels)):
@@ -106,7 +106,6 @@ def plot_values(data):
     plt.legend()
     plt.tight_layout()
     plt.show()
-
 
 def convert_name(name):
     # Split the name into last name and first name
@@ -133,3 +132,30 @@ def build_role_dict(from_list, name_index, role_index):
         ret_d[l[name_index]] = l[role_index]
     return ret_d
 
+def extract_set_from_csv(csv_file, id_index):
+    """
+    Extract a set of IDs from a CSV file
+    :param csv_file: The CSV file to read
+    :param id_index: The index of the ID field in the CSV file
+    :return: A set of IDs
+    """
+    return_set = set()
+    with open(csv_file, 'r', encoding='ISO-8859-1') as fin:
+        cin = csv.reader(fin)
+        for row in cin:
+            return_set.add(row[id_index])
+    return return_set
+
+def extract_list_matching_set(from_list, id_set, id_index):
+    """
+    Extract a list of entries from from_list where the ID at id_index is in id_set
+    :param from_list: The list to extract from
+    :param id_set: The set of IDs to match
+    :param id_index: The index of the ID field in the list
+    :return: A list of entries matching the IDs in id_set
+    """
+    return_l = []
+    for l in from_list:
+        if l[id_index] in id_set:
+            return_l.append(l)
+    return return_l

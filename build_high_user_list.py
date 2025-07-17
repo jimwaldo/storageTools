@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
-"""Created on Fri Oct 27 11:58:08 2023
-Python code to take the report sent out by HUIT on SEAS Storage and produce an
+"""
+Created on Fri Oct 27 11:58:08 2023
+Python code to take the extrct of thereport sent out by HUIT on SEAS Storage that is
+created by extractList.py and produce a further
 extract that contains the name, email, role, and storage value for the top 20 users
 of a specified storage type. The code generates a CSV file with this information.
 """

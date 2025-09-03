@@ -22,6 +22,11 @@ def get_top_20_users(data_list, field_index):
 
 
 if __name__ == '__main__':
+    """
+    Main function to read a pickle file containing the list that is the result of the extractList.py
+    script, sort the users by a specified field index, and write the top 20 users to a CSV file.
+    The CSV file will contain the user's name, email, role, and the specified storage value.
+    """
     if len(sys.argv) != 4:
         print('Usage: python build_high_user_list.py input.pkl output.csv field_index')
         sys.exit(1)

@@ -45,7 +45,7 @@ extract_list = rep_d.values()
 
 # Number of header lines that need to be skipped
 
-header_line_len = 4
+header_line_len = 3
 
 
 #num_fields = {18,19,20,21,22,23} Numeric fields for April
